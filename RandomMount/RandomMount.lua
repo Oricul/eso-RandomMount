@@ -13,7 +13,7 @@ end
 -- @Origami: Initialize the addon details.
 function RM_Object:Initialize()
 	self.ADDON_NAME = "RandomMount"
-	self.ADDON_VERSION = "3.4"
+	self.ADDON_VERSION = "3.5"
 	self.account = {}
 	self.settings = {}
 	self.player_activated = false
@@ -564,15 +564,13 @@ end
 function RM_Object:SummonMount()
 	local k = self:GetKey()
 	if self[k].mount.enable then
-		if (not self:IsCorrectMount(self[k].currentMountId)) then
-			self[k].currentMountId = actualCurrentMount
-		end
+		local currentMount = GetActiveCollectibleByType(COLLECTIBLE_CATEGORY_TYPE_MOUNT)
 		if self:InPvP() and self[k].mount.enable_pvp == false then return end
 		local useable = self:GetUseableMounts()
 		if #useable > 0 then
 			local newMount = useable[math.random(1, #useable)]
 			if ( #useable > 1 ) then
-				while ( newMount == self[k].currentMountId )
+				while ( newMount == currentMount )
 				do
 					newMount = useable[math.random(1, #useable)]
 				end
@@ -580,10 +578,12 @@ function RM_Object:SummonMount()
 			local timeBetweenChange = GetDiffBetweenTimeStamps(GetTimeStamp(), self.mountChanged)
 			local delay = self[self:GetKey()].delay
 			if timeBetweenChange > delay then
-				if (not IsMounted()) and (not IsCollectibleActive(newMount)) and IsCollectibleUsable(newMount) and (not IsUnitInCombat("player")) then
-					self[k].currentMountId = newMount
-					UseCollectible(newMount)
-					--UseCollectible(newMount,GAMEPLAY_ACTOR_CATEGORY_COMPANION)
+				if (not IsMounted()) and (not IsCollectibleActive(newMount)) and (not IsUnitInCombat("player")) then
+					if not IsCollectibleUsable(newMount) then
+						zo_callLater(function() UseCollectible(newMount) end, self[k].delay * 1000)
+					else
+						UseCollectible(newMount)
+					end
 					self.mountChanged = GetTimeStamp()
 				end
 			end

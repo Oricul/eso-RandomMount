@@ -1,12 +1,12 @@
 <h1 align="center">Welcome to eso-RandomMount 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-3.4-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-3.5-blue.svg?cacheSeconds=2592000" />
   <a href="https://twitter.com/Oricul" target="_blank">
     <img alt="Twitter: Oricul" src="https://img.shields.io/twitter/follow/Oricul.svg?style=social" />
   </a>
 </p>
 
-> This is an Elder Scrolls Online (ESO) addon that was originally developed by **Weolo** for **nyalahalo**. The purpose is to summon a random mount, pet, and/or player skin.
+> This is an Elder Scrolls Online (ESO) addon that was originally developed by **Weolo** for **nyalahalo**. The purpose of this addon is to summon a random mount, pet, and/or player skin. See [ESOUI addon page](https://esoui.com/downloads/info1984-RandomMount.html) for more details.
 
 ### 🏠 [Homepage](https://esoui.com/downloads/info1984-RandomMount.html)
 

@@ -1,3 +1,8 @@
+3.5 (27)
+- Slight LUA optimizations including reducing memory footprint.
+- Added GitHub information to assist in version control.
+- KNOWN BUG: Settings list doesn't always respect newly unlocked collectibles.
+
 3.4 (26)
 - Changed the way randomisation on zoning is performed. It should now function as expected. (Thanks for your reporting of this issue, Baxpowa).
 - Added additional support for multi-rider mounts, including two new options. (Thanks for your suggestion, sshogrin).

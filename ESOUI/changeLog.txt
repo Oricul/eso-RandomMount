@@ -1,6 +1,8 @@
 3.5 (27)
 - Slight LUA optimizations including reducing memory footprint.
 - Added GitHub information to assist in version control.
+- Adjust some settings configuration that can cause issues with normal functionality.
+- BUG FIX: Randomise on zone change without randomise on dismount should work now.
 - KNOWN BUG: Settings list doesn't always respect newly unlocked collectibles.
 
 3.4 (26)

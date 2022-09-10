@@ -186,6 +186,11 @@ function RM_Object:CreateSettingsMenu()
         donation = "https://www.esoui.com/downloads/info1984-RandomMount.html#donate"
     }
     self.panel = LibAddonMenu2:RegisterAddonPanel(optionsName, panelData)
+    self:AddSettingsOptions(optionsName, defaults)
+end
+
+-- @Origami: Testing update of options.
+function RM_Object:AddSettingsOptions(optionsName, defaults)
     local optionsData = {{
         type = "checkbox",
         name = RM_OP_ACCOUNT,
@@ -477,6 +482,7 @@ end
 function RM_Object:OnCollectionUpdated(...)
     self:GetData()
     if self.panel then
+        self:GetData()
         self.panel:RefreshPanel()
     end
 end
@@ -509,18 +515,29 @@ end
 -- @Origami: Triggered by ZOS event. Triggers whenever a zone change is detected.
 -- @Origami: Additionally, this is technically called upon player activation (i.e., load complete). This is because ZOS zone change event triggers on subzones and isn't reliable on actual zone changes.
 function RM_Object:OnZone(...)
-    local k = self:GetKey()
     local currentZoneId = GetZoneId(GetUnitZoneIndex("player"))
-    if self[k].currentZoneId ~= currentZoneId then
-        self[k].currentZoneId = currentZoneId
-        if self[k].mount.zone then
-            self:SummonMount()
+    if self[self:GetKey()].currentZoneId ~= currentZoneId then
+        self[self:GetKey()].currentZoneId = currentZoneId
+        if self[self:GetKey()].mount.zone then
+            if not isMounted then
+                zo_callLater(function()
+                    self:SummonMount()
+                end, 1200)
+            end
         end
-        if self[k].pet.zone then
-            self:SummonPet()
+        if self[self:GetKey()].pet.zone then
+            if not isMounted then
+                zo_callLater(function()
+                    self:SummonPet()
+                end, 1200)
+            end
         end
-        if self[k].skin.zone then
-            self:ChangeSkin()
+        if self[self:GetKey()].skin.zone then
+            if not isMounted then
+                zo_callLater(function()
+                    self:ChangeSkin()
+                end, 1200)
+            end
         end
     end
 end
@@ -655,17 +672,6 @@ function RM_Object:IsMultiRider(id)
         isMultiRider = true
     end
     return isMultiRider
-end
-
--- @Origami: Temporary work-around to keep current ID up-to-date for mounts.
--- @Origami: This is a bug waiting for resolution from Weolo to understand why we store instead of poll current mount.
-function RM_Object:IsCorrectMount(id)
-    local actualMount = GetActiveCollectibleByType(COLLECTIBLE_CATEGORY_TYPE_MOUNT)
-    if id ~= actualMount then
-        return false
-    else
-        return true
-    end
 end
 
 -- @Origami: This triggers based on change settings and it will change the active mount randomly.
@@ -830,8 +836,8 @@ function RM_Object:OnPlayerActivated()
             self:OnZone()
         end, 2000)
     end)
-    EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_COLLECTION_UPDATED, function(...)
-        self:OnCollectionUpdated()
+    EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_COLLECTION_UPDATED, function(_)
+        self:OnCollectionUpdated(_)
     end) -- @Weolo: Full refresh
     EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_COLLECTIBLES_UNLOCK_STATE_CHANGED, function(...)
         self:OnCollectionUpdated()

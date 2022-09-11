@@ -493,21 +493,21 @@ function RM_Object:OnMountedStateChanged(isMounted)
         if not isMounted then
             zo_callLater(function()
                 self:SummonMount()
-            end, 1200)
+            end, 1000)
         end
     end
     if self[self:GetKey()].pet.dismount then
         if not isMounted then
             zo_callLater(function()
                 self:SummonPet()
-            end, 1200)
+            end, 1000)
         end
     end
     if self[self:GetKey()].skin.dismount then
         if not isMounted then
             zo_callLater(function()
                 self:ChangeSkin()
-            end, 1200)
+            end, 1000)
         end
     end
 end
@@ -515,28 +515,30 @@ end
 -- @Origami: Triggered by ZOS event. Triggers whenever a zone change is detected.
 -- @Origami: Additionally, this is technically called upon player activation (i.e., load complete). This is because ZOS zone change event triggers on subzones and isn't reliable on actual zone changes.
 function RM_Object:OnZone(...)
+    -- d('RandomMount: OnZone triggered.')
     local currentZoneId = GetZoneId(GetUnitZoneIndex("player"))
     if self[self:GetKey()].currentZoneId ~= currentZoneId then
         self[self:GetKey()].currentZoneId = currentZoneId
         if self[self:GetKey()].mount.zone then
             if not isMounted then
+                -- d('RandomMount: Should trigger mount change.')
                 zo_callLater(function()
                     self:SummonMount()
-                end, 1200)
+                end, 1000)
             end
         end
         if self[self:GetKey()].pet.zone then
             if not isMounted then
                 zo_callLater(function()
                     self:SummonPet()
-                end, 1200)
+                end, 1000)
             end
         end
         if self[self:GetKey()].skin.zone then
             if not isMounted then
                 zo_callLater(function()
                     self:ChangeSkin()
-                end, 1200)
+                end, 1000)
             end
         end
     end
@@ -828,16 +830,18 @@ function RM_Object:OnPlayerActivated()
     self:StructureAndFix()
     self:GetData()
     self:CreateSettingsMenu()
-    EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_ZONE_CHANGED, function(_, ...)
-        self:OnZone(...)
+    EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_ZONE_CHANGED, function()
+        zo_callLater(function()
+            self:OnZone()
+        end, 2000)
     end)
     EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_PLAYER_ACTIVATED, function()
         zo_callLater(function()
             self:OnZone()
         end, 2000)
     end)
-    EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_COLLECTION_UPDATED, function(_)
-        self:OnCollectionUpdated(_)
+    EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_COLLECTION_UPDATED, function(...)
+        self:OnCollectionUpdated()
     end) -- @Weolo: Full refresh
     EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_COLLECTIBLES_UNLOCK_STATE_CHANGED, function(...)
         self:OnCollectionUpdated()

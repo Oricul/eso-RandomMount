@@ -1,11 +1,13 @@
+[URL="https://github.com/Oricul/eso-RandomMount"][IMG]https://img.shields.io/github/license/Oricul/eso-RandomMount?style=flat[/IMG][IMG]https://img.shields.io/github/commit-activity/y/Oricul/eso-RandomMount?label=main%20commits&style=flat[/IMG][IMG]https://img.shields.io/github/last-commit/Oricul/eso-RandomMount?label=main%20update[/IMG][/URL][URL="https://github.com/Oricul/eso-RandomMount/tree/dev"][IMG]https://img.shields.io/github/commit-activity/y/Oricul/eso-RandomMount/dev?label=dev%20commits[/IMG][IMG]https://img.shields.io/github/last-commit/Oricul/eso-RandomMount/dev?label=dev%20update[/IMG][/URL][URL="https://github.com/Oricul/eso-RandomMount/graphs/contributors"][IMG]https://img.shields.io/github/contributors/Oricul/eso-RandomMount?label=github%20contributors[/IMG][/URL][URL="https://github.com/Oricul/eso-RandomMount/issues"][IMG]https://img.shields.io/github/issues-raw/Oricul/eso-RandomMount[/IMG][/URL][URL="https://github.com/sponsors/Oricul"][IMG]https://img.shields.io/github/sponsors/Oricul[/IMG][/URL]
+
 Originally, RandomMount was created by [B]Weolo[/B] for [B]nyalahalo[/B]. Since August 2022, it's been maintained by [B]Origami[/B].
 
 The purpose of this addon is to randomise selection of mounts, pets, and/or skins with options to choose which items you want enabled for randomisation. Every aspect of this addon can be customised from the settings menu. For a full list of options, please refer to the screenshots.
 
 [B][COLOR="Red"]DEPENDENCIES[/COLOR][/B]
-[I]These libraries are required in order to function properly and must be installed separately.[/I]
-[URL="https://www.esoui.com/downloads/info7-LibAddonMenu.html"]LibAddonMenu[/URL]
+[I]These libraries must be installed separately.[/I]
+[URL="https://www.esoui.com/downloads/info7-LibAddonMenu.html"][IMG]https://img.shields.io/badge/required-LibAddonMenu-red[/IMG][/URL]
 
 We sincerely hope you enjoy using RandomMount. Please feel free to leave feedback.
 
-[URL="https://github.com/Oricul/eso-RandomMount"]GitHub: eso-RandomMount[/URL]
+[URL="https://github.com/Oricul/eso-RandomMount"][IMG]https://img.shields.io/badge/github-eso--RandomMount-9cf[/IMG][/URL]

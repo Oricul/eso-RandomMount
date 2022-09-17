@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to eso-RandomMount 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-3.5-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-3.6-blue.svg?cacheSeconds=2592000" />
   <a href="https://twitter.com/Oricul" target="_blank">
     <img alt="Twitter: Oricul" src="https://img.shields.io/twitter/follow/Oricul.svg?style=social" />
   </a>

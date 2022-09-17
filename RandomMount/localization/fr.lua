@@ -17,7 +17,10 @@ local strings = {
     RM_OP_SKINS_ENABLE = "Activer les peau aléatoires",
     RM_OP_DELAY = "Retard",
     RM_OP_DELAY_TT = "Le délai entre les montures aléatoires et les familiers et les peau",
-    RM_OP_ALLOW_DEFAULT = "Autoriser l'habillage par défaut"
+    RM_OP_ALLOW_DEFAULT = "Autoriser l'habillage par défaut",
+    RM_OP_PETS_UNSUMMON_PVP = "Désinvocation dans les zones pvp",
+    RM_OP_PETS_UNSUMMON_DUNGEON = "Désinvocation dans les zones de donjon",
+    RM_OP_PETS_UNSUMMON_GROUP = "Désinvocation en groupe"
 }
 
 if GetString(RM_OP_HEADING1):len() == 0 then

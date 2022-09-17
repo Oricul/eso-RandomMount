@@ -17,7 +17,10 @@ local strings = {
     RM_OP_SKINS_ENABLE = "Habilitar piel aleatorias",
     RM_OP_DELAY = "Demora",
     RM_OP_DELAY_TT = "La demora entre monturas aleatorias y mascotas y piel",
-    RM_OP_ALLOW_DEFAULT = "Permitir máscara predeterminada"
+    RM_OP_ALLOW_DEFAULT = "Permitir máscara predeterminada",
+    RM_OP_PETS_UNSUMMON_PVP = "Anular invocación en zonas pvp",
+    RM_OP_PETS_UNSUMMON_DUNGEON = "Anular invocación en zonas de mazmorras",
+    RM_OP_PETS_UNSUMMON_GROUP = "Anular la invocación mientras está agrupado"
 }
 
 if GetString(RM_OP_HEADING1):len() == 0 then

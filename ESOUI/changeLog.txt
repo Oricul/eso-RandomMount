@@ -1,3 +1,6 @@
+3.6 (28)
+- New pet features: Unsummon in pvp and dungeon zones, and unsummon while grouped. (Thanks for your suggestion, sshogrin).
+
 3.5 (27)
 - Slight LUA optimizations including reducing memory footprint.
 - Added GitHub information to assist in version control.

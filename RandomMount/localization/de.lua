@@ -17,7 +17,10 @@ local strings = {
     RM_OP_SKINS_ENABLE = "Zufällige Haut aktivieren",
     RM_OP_DELAY = "Verzögerung",
     RM_OP_DELAY_TT = "Die Verzögerung zwischen zufälligen Reittieren, Haustieren, und Haut",
-    RM_OP_ALLOW_DEFAULT = "Standard-Skin zulassen"
+    RM_OP_ALLOW_DEFAULT = "Standard-Skin zulassen",
+    RM_OP_PETS_UNSUMMON_PVP = "in PvP-Zonen nicht beschworen",
+    RM_OP_PETS_UNSUMMON_DUNGEON = "in Dungeonzonen nicht beschworen",
+    RM_OP_PETS_UNSUMMON_GROUP = "Nicht beschworen, während gruppiert"
 }
 
 if GetString(RM_OP_HEADING1):len() == 0 then

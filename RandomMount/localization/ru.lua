@@ -17,7 +17,10 @@ local strings = {
     RM_OP_SKINS_ENABLE = "Включить случайные скины",
     RM_OP_DELAY = "Задержка",
     RM_OP_DELAY_TT = "Задержка между случайными маунтами и питомцами и скины",
-    RM_OP_ALLOW_DEFAULT = "Разрешить скин по умолчанию"
+    RM_OP_ALLOW_DEFAULT = "Разрешить скин по умолчанию",
+    RM_OP_PETS_UNSUMMON_PVP = "отзов в пвп зонах",
+    RM_OP_PETS_UNSUMMON_DUNGEON = "отозвать в подземельях",
+    RM_OP_PETS_UNSUMMON_GROUP = "отозвать в группе"
 }
 
 if GetString(RM_OP_HEADING1):len() == 0 then

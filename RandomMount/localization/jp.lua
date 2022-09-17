@@ -17,7 +17,10 @@ local strings = {
     RM_OP_SKINS_ENABLE = "ランダムスキンを有効にする",
     RM_OP_DELAY = "遅れ",
     RM_OP_DELAY_TT = "ランダムマウントとペットの間の遅延とスキンス",
-    RM_OP_ALLOW_DEFAULT = "デフォルトのスキンを許可する"
+    RM_OP_ALLOW_DEFAULT = "デフォルトのスキンを許可する",
+    RM_OP_PETS_UNSUMMON_PVP = "プレイヤー対プレイヤーゾーンでの召喚解除",
+    RM_OP_PETS_UNSUMMON_DUNGEON = "ダンジョンゾーンで召喚解除",
+    RM_OP_PETS_UNSUMMON_GROUP = "グループ化中に召喚解除"
 }
 
 if GetString(RM_OP_HEADING1):len() == 0 then

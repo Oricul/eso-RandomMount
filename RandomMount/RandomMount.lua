@@ -13,7 +13,7 @@ end
 -- @Origami: Initialize the addon details.
 function RM_Object:Initialize()
     self.ADDON_NAME = "RandomMount"
-    self.ADDON_VERSION = "3.5"
+    self.ADDON_VERSION = "3.6"
     self.account = {}
     self.settings = {}
     self.player_activated = false
@@ -189,9 +189,9 @@ function RM_Object:CreateSettingsMenu()
     self:AddSettingsOptions(optionsName, defaults)
 end
 
--- @Origami: Testing update of options.
+-- @Origami: Build options menu.
 function RM_Object:AddSettingsOptions(optionsName, defaults)
-    local optionsData = {{
+    local optionsData = {{ -- @Origami: General options.
         type = "checkbox",
         name = RM_OP_ACCOUNT,
         getFunc = function()
@@ -215,7 +215,7 @@ function RM_Object:AddSettingsOptions(optionsName, defaults)
         max = 7,
         step = 1,
         default = defaults[self:GetKey()].delay
-    }, {
+    }, { -- @Origami: Mount options start here.
         type = "header",
         name = RM_OP_HEADING1
     }, {
@@ -304,7 +304,7 @@ function RM_Object:AddSettingsOptions(optionsName, defaults)
         end,
         icon = "/esoui/art/treeicons/store_indexicon_mounts_down.dds",
         reference = sf("%s_Mounts", self.ADDON_NAME)
-    }, {
+    }, { -- @Origami: Pet options start here.
         type = "header",
         name = RM_OP_HEADING2
     }, {
@@ -344,6 +344,57 @@ function RM_Object:AddSettingsOptions(optionsName, defaults)
         end,
         default = defaults[self:GetKey()].pet.dismount
     }, {
+        type = "checkbox",
+        name = RM_OP_PETS_UNSUMMON_PVP,
+        getFunc = function()
+            return self[self:GetKey()].pet.unsummonpvp
+        end,
+        setFunc = function(value)
+            self[self:GetKey()].pet.unsummonpvp = value
+        end,
+        disabled = function()
+            if ((self[self:GetKey()].pet.enable) and (self[self:GetKey()].pet.zone)) then
+                return false
+            else
+                return true
+            end
+        end,
+        default = defaults[self:GetKey()].pet.unsummonpvp
+    }, {
+        type = "checkbox",
+        name = RM_OP_PETS_UNSUMMON_DUNGEON,
+        getFunc = function()
+            return self[self:GetKey()].pet.unsummondungeon
+        end,
+        setFunc = function(value)
+            self[self:GetKey()].pet.unsummondungeon = value
+        end,
+        disabled = function()
+            if ((self[self:GetKey()].pet.enable) and (self[self:GetKey()].pet.zone)) then
+                return false
+            else
+                return true
+            end
+        end,
+        default = defaults[self:GetKey()].pet.unsummondungeon
+    }, {
+        type = "checkbox",
+        name = RM_OP_PETS_UNSUMMON_GROUP,
+        getFunc = function()
+            return self[self:GetKey()].pet.unsummongroup
+        end,
+        setFunc = function(value)
+            self[self:GetKey()].pet.unsummongroup = value
+        end,
+        disabled = function()
+            if ((self[self:GetKey()].pet.enable) and (self[self:GetKey()].pet.zone)) then
+                return false
+            else
+                return true
+            end
+        end,
+        default = defaults[self:GetKey()].pet.unsummongroup
+    }, {
         type = "submenu",
         name = RM_OP_HEADING4,
         controls = self:GetPetOptions(),
@@ -352,7 +403,7 @@ function RM_Object:AddSettingsOptions(optionsName, defaults)
         end,
         icon = "/esoui/art/treeicons/store_indexicon_vanitypets_down.dds",
         reference = sf("%s_Pets", self.ADDON_NAME)
-    }, {
+    }, { -- @Origami: Skin options start here.
         type = "header",
         name = RM_OP_HEADING6
     }, {
@@ -515,23 +566,33 @@ end
 -- @Origami: Triggered by ZOS event. Triggers whenever a zone change is detected.
 -- @Origami: Additionally, this is technically called upon player activation (i.e., load complete). This is because ZOS zone change event triggers on subzones and isn't reliable on actual zone changes.
 function RM_Object:OnZone(...)
-    -- d('RandomMount: OnZone triggered.')
     local currentZoneId = GetZoneId(GetUnitZoneIndex("player"))
     if self[self:GetKey()].currentZoneId ~= currentZoneId then
         self[self:GetKey()].currentZoneId = currentZoneId
+        local currentZoneType = GetMapContentType()
         if self[self:GetKey()].mount.zone then
             if not isMounted then
-                -- d('RandomMount: Should trigger mount change.')
                 zo_callLater(function()
                     self:SummonMount()
                 end, 1000)
             end
         end
         if self[self:GetKey()].pet.zone then
-            if not isMounted then
+            if (self[self:GetKey()].pet.unsummonpvp and currentZoneType ~= MAP_CONTENT_NONE and currentZoneType ~=
+                MAP_CONTENT_DUNGEON) then
                 zo_callLater(function()
-                    self:SummonPet()
+                    self:UnsummonPet()
                 end, 1000)
+            elseif (self[self:GetKey()].pet.unsummondungeon and currentZoneType == MAP_CONTENT_DUNGEON) then
+                zo_callLater(function()
+                    self:UnsummonPet()
+                end, 1000)
+            else
+                if not isMounted then
+                    zo_callLater(function()
+                        self:SummonPet()
+                    end, 1000)
+                end
             end
         end
         if self[self:GetKey()].skin.zone then
@@ -541,6 +602,20 @@ function RM_Object:OnZone(...)
                 end, 1000)
             end
         end
+    end
+end
+
+-- @Origami: Trigger group state change events.
+function RM_Object:OnGroupStateChange()
+    if (IsUnitGrouped("player") and self[self:GetKey()].pet.unsummongroup) then
+        zo_callLater(function()
+            self:UnsummonPet()
+        end, 1000)
+    end
+    if ((not IsUnitGrouped("player")) and self[self:GetKey()].pet.unsummongroup) then
+        zo_callLater(function()
+            self:SummonPet()
+        end, 1000)
     end
 end
 
@@ -558,7 +633,10 @@ function RM_Object:DefaultAccount()
         pet = {
             enable = true,
             zone = true,
-            dismount = true
+            dismount = true,
+            unsummonpvp = false,
+            unsummondungeon = false,
+            unsummongroup = false
         },
         skin = {
             enable = false,
@@ -603,7 +681,10 @@ function RM_Object:DefaultSettings()
         pet = {
             enable = true,
             zone = true,
-            dismount = true
+            dismount = true,
+            unsummonpvp = false,
+            unsummondungeon = false,
+            unsummongroup = false
         },
         skin = {
             enable = false,
@@ -807,6 +888,24 @@ function RM_Object:SummonPet()
     end
 end
 
+function RM_Object:UnsummonPet()
+    local k = self:GetKey()
+    if self[k].pet.enable then
+        if self:InPvP() then
+            return
+        end
+        local currentPet = GetActiveCollectibleByType(COLLECTIBLE_CATEGORY_TYPE_VANITY_PET)
+        local timeBetweenChange = GetDiffBetweenTimeStamps(GetTimeStamp(), self.petChanged)
+        local delay = self[self:GetKey()].delay
+        if timeBetweenChange > delay then
+            if IsCollectibleUsable(currentPet) and (not IsUnitInCombat("player")) then
+                UseCollectible(currentPet)
+                self.petChanged = GetTimeStamp()
+            end
+        end
+    end
+end
+
 -- @Origami: Returns boolean based on whether player is in PvP.
 function RM_Object:InPvP()
     return IsInAvAZone() or IsUnitPvPFlagged("player") or IsActiveWorldBattleground()
@@ -839,6 +938,12 @@ function RM_Object:OnPlayerActivated()
         zo_callLater(function()
             self:OnZone()
         end, 2000)
+    end)
+    EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_GROUP_MEMBER_JOINED, function()
+        self:OnGroupStateChange()
+    end)
+    EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_GROUP_MEMBER_LEFT, function()
+        self:OnGroupStateChange()
     end)
     EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_COLLECTION_UPDATED, function(...)
         self:OnCollectionUpdated()

@@ -15,7 +15,7 @@
 👤 **Origami**
 
 - Website: https://www.linkedin.com/in/brad-hughes-548a2791/
-- Mastodon: [@Oricul](https://mastodon.online/@0rigami)
+- Mastodon: [@0rigami](https://mastodon.online/@0rigami)
 - Github: [@Oricul](https://github.com/Oricul)
 - LinkedIn: [@brad-hughes-548a2791](https://linkedin.com/in/brad-hughes-548a2791)
 

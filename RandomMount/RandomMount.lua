@@ -13,7 +13,6 @@ end
 -- @Origami: Initialize the addon details.
 function RM_Object:Initialize()
     self.ADDON_NAME = "RandomMount"
-    self.ADDON_VERSION = "3.6"
     self.ADDON_VERSION = "3.7"
     self.account = {}
     self.settings = {}

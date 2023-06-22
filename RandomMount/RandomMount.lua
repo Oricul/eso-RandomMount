@@ -14,6 +14,7 @@ end
 function RM_Object:Initialize()
     self.ADDON_NAME = "RandomMount"
     self.ADDON_VERSION = "3.6"
+    self.ADDON_VERSION = "3.7"
     self.account = {}
     self.settings = {}
     self.player_activated = false
@@ -785,6 +786,10 @@ function RM_Object:SummonMount()
                         UseCollectible(newMount)
                     end
                     self.mountChanged = GetTimeStamp()
+                else
+                    zo_callLater(function()
+                        UseCollectible(newMount)
+                    end, self[k].delay * 270)
                 end
             end
         end
@@ -948,6 +953,9 @@ function RM_Object:OnPlayerActivated()
     EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_COLLECTION_UPDATED, function(...)
         self:OnCollectionUpdated()
     end) -- @Weolo: Full refresh
+    EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_COLLECTIBLES_UPDATED, function(...)
+        self:OnCollectionUpdated()
+    end) -- @Origami: Another way to check for updates
     EVENT_MANAGER:RegisterForEvent(self.ADDON_NAME, EVENT_COLLECTIBLES_UNLOCK_STATE_CHANGED, function(...)
         self:OnCollectionUpdated()
     end) -- @Weolo: Need to check more

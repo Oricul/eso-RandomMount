@@ -1,8 +1,8 @@
 <h1 align="center">Welcome to eso-RandomMount 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-3.6-blue.svg?cacheSeconds=2592000" />
-  <a href="https://twitter.com/Oricul" target="_blank">
-    <img alt="Twitter: Oricul" src="https://img.shields.io/twitter/follow/Oricul.svg?style=social" />
+  <img alt="Version" src="https://img.shields.io/badge/version-3.7-blue.svg?cacheSeconds=2592000" />
+  <a href="https://mastodon.online/@0rigami" target="_blank">
+    <img alt="Mastodon Follow" src="https://img.shields.io/mastodon/follow/109271925024637780?domain=https%3A%2F%2Fmastodon.online">
   </a>
 </p>
 
@@ -15,7 +15,7 @@
 👤 **Origami**
 
 - Website: https://www.linkedin.com/in/brad-hughes-548a2791/
-- Twitter: [@Oricul](https://twitter.com/Oricul)
+- Mastodon: [@Oricul](https://mastodon.online/@0rigami)
 - Github: [@Oricul](https://github.com/Oricul)
 - LinkedIn: [@brad-hughes-548a2791](https://linkedin.com/in/brad-hughes-548a2791)
 

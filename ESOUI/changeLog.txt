@@ -1,3 +1,7 @@
+3.7 (29)
+- Fixed mount not randomizing on dismount, seemed to be related to some form of global cooldown for mounts.
+- Added another check for collections updating. *SHOULD* fix updating when a new mount is unlocked.
+
 3.6 (28)
 - New pet features: Unsummon in pvp and dungeon zones, and unsummon while grouped. (Thanks for your suggestion, sshogrin).
 

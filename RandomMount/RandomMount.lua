@@ -751,7 +751,7 @@ function RM_Object:IsMultiRider(id)
     local categoryData = ZO_COLLECTIBLE_DATA_MANAGER:GetCollectibleDataById(id).categoryData
     local subCategoryName = ZO_COLLECTIBLE_DATA_MANAGER:GetCategoryDataByIndicies(categoryData.categoryIndex,
                                 categoryData.subcategoryIndex).name
-    d("[DEBUG-RandomMount] subCategoryName: %s", subCategoryName)
+    d(sf("[DEBUG-RandomMount] id: %s; subCategoryName: %s", tostring(id), subCategoryName))
     if (subCategoryName == 'Multi-Rider') then
         isMultiRider = true
     end

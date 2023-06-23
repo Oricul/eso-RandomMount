@@ -4,7 +4,7 @@
 ## SavedVariables: RandomMountSettings
 ## Version: 3.7
 ## AddOnVersion: 29
-## APIVersion: 101034 101035 101036 101037
+## APIVersion: 101037 101038
 ## DependsOn: LibAddonMenu-2.0>=32 LibRandomMount
 
 localization/$(language).lua

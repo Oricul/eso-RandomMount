@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to eso-RandomMount 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-3.7-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-3.8-blue.svg?cacheSeconds=2592000" />
   <a href="https://mastodon.online/@0rigami" target="_blank">
     <img alt="Mastodon Follow" src="https://img.shields.io/mastodon/follow/109271925024637780?domain=https%3A%2F%2Fmastodon.online">
   </a>

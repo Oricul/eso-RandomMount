@@ -13,7 +13,7 @@ end
 -- @Origami: Initialize the addon details.
 function RM_Object:Initialize()
     self.ADDON_NAME = "RandomMount"
-    self.ADDON_VERSION = "3.7"
+    self.ADDON_VERSION = "3.8"
     self.account = {}
     self.settings = {}
     self.player_activated = false
@@ -749,13 +749,8 @@ function RM_Object:IsMultiRider(id)
     local k = self:GetKey()
     local isMultiRider = false
     local categoryData = ZO_COLLECTIBLE_DATA_MANAGER:GetCollectibleDataById(id).categoryData
-    local subCategory = ZO_COLLECTIBLE_DATA_MANAGER:GetCategoryDataByIndicies(categoryData.categoryIndex,
-        categoryData.subcategoryIndex)
-    local subSubCategory = ZO_COLLECTIBLE_DATA_MANAGER:GetCategoryDataByIndicies(subCategory.categoryIndex,
-        subCategory.subcategoryIndex)
-    local subCategoryName = subCategory.name
-    d(sf("[DEBUG-RandomMount] id: %s; categoryDataName: %s; subCategoryName: %s", tostring(id),
-        tostring(categoryData:GetName()), tostring(subCategory:GetName())))
+    local subCategoryName = ZO_COLLECTIBLE_DATA_MANAGER:GetCategoryDataByIndicies(categoryData.categoryIndex,
+        categoryData.subcategoryIndex):GetName()
     if (subCategoryName == 'Multi-Rider') then
         isMultiRider = true
     end

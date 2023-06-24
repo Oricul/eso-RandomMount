@@ -1,3 +1,6 @@
+3.8 (30)
+- Fixed multi-rider mount functionality that broke with ZOS' built-in favorite mount update. (Thanks to sshogrin for testing.)
+
 3.7 (29)
 - Fixed mount not randomizing on dismount, seemed to be related to some form of global cooldown for mounts.
 - Added another check for collections updating. *SHOULD* fix updating when a new mount is unlocked.
